@@ -1,9 +1,12 @@
 package me.hades.yqword.view.ui.activity;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -18,7 +21,10 @@ import me.hades.yqword.utils.CommonValues;
  * @author hades
  */
 
-public class YouDaoWordActivity extends AppCompatActivity {
+public class YouDaoWordActivity extends BaseActivity {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.youdaoWebView)
     WebView youdaoWebView;
@@ -38,7 +44,15 @@ public class YouDaoWordActivity extends AppCompatActivity {
         }
         WebSettings webSettings = youdaoWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        getSupportActionBar().setTitle("有道单词详情");
+
+        toolbar.setTitle("有道单词详情");
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (null != actionBar) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         youdaoWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         youdaoWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -49,4 +63,17 @@ public class YouDaoWordActivity extends AppCompatActivity {
         });
         youdaoWebView.loadUrl(CommonValues.youdaoWordPageUrl + english);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
