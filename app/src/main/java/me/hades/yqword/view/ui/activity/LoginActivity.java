@@ -1,4 +1,4 @@
-package me.hades.yqword.view.ui;
+package me.hades.yqword.view.ui.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

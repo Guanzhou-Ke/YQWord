@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">YQWord</string>
+    <string name="app_name">易趣单词</string>
+
+    <string name="startLearn">开始学习</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,7 +13,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in_short">登录</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -19,4 +21,25 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!--Modify-->
+    <string name="hide_easy">hideEasy</string>
+    <string name="easy_word_list">easy_word_list</string>
+    <string name="core_mode">core_mode</string>
+    <!--19考研的时间-->
+    <string name="defaultTestDate">2018-12-29</string>
+    <string name="progress">进度</string>
+    <string name="defaultChinese">TextView\\hello\\nice</string>
+    <!--首页字符串-->
+    <string name="title_home">记单词</string>
+    <string name="title_news">考研动态</string>
+
+    <string name="searchTips">抱歉，词库并没有收录这个单词哦！</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cancel_grasp">加入生词本</string>
+
+    <string name="tips_never_show">这表示您已经完全掌握了这个单词,它将不再显示在学习和复习中,是否不再显示?</string>
+    <string name="confirm_never_show">已完全掌握</string>
 </resources>

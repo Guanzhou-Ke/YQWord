@@ -1,52 +1,79 @@
-package me.hades.yqword.view.ui;
+package me.hades.yqword.view.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+
+import com.ycl.tabview.library.TabView;
+import com.ycl.tabview.library.TabViewChild;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.hades.yqword.R;
+import me.hades.yqword.utils.CommonValues;
+import me.hades.yqword.view.ui.fragment.NewsFragment;
+import me.hades.yqword.view.ui.fragment.HomeFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity
+        implements NavigationView.OnNavigationItemSelectedListener,
+        HomeFragment.OnFragmentInteractionListener,
+        NewsFragment.OnFragmentInteractionListener{
+
+
+    @BindView(R.id.tabView)
+    TabView tabView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+
+    HomeFragment homeFragment;
+    NewsFragment newsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        homeFragment = new HomeFragment();
+        newsFragment = new NewsFragment();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // 初始化底部导航栏
+        List<TabViewChild> tabViewChildList=new ArrayList<>();
+        TabViewChild tab1 = new TabViewChild(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "记单词", homeFragment);
+        TabViewChild tab2 = new TabViewChild(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "考研动态", newsFragment);
+        tabViewChildList.add(tab1);
+        tabViewChildList.add(tab2);
+
+        tabView.setTabViewChild(tabViewChildList, getSupportFragmentManager());
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -69,7 +96,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.searchWordView) {
+            startActivity(new Intent(this, SearchWordActivity.class));
             return true;
         }
 
@@ -96,8 +124,26 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Fragment通讯回调接口
+     * @param action
+     */
+    @Override
+    public void onFragmentInteraction(int action) {
+        if (1 == action) {
+            Toast.makeText(context, "haha", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (CommonValues.DATA_CHANGED) {
+            homeFragment.refresh();
+        }
     }
 }

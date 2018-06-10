@@ -1,31 +1,86 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "me.hades.yqword"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        //开发调试的时候有效
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            debuggable true
+        }
+        //打包的时候使用
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            //加载混淆配置文件
+            //proguard-android.txt为默认的混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            //signingConfig signingConfigs.release
+
         }
     }
 }
 
+/**
+ * 设置数据库版本
+ */
+greendao {
+    schemaVersion 4
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    compile 'com.android.support:appcompat-v7:26.1.0' // appcompat library
+    compile 'com.android.support:design:26.1.0'       //design support library
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     compile 'com.android.support:support-annotations:27.1.1'
+    // 友盟sdk
+    compile 'com.umeng.sdk:common:1.5.0'
+    compile 'com.umeng.sdk:analytics:7.5.0'
+    // Gson
+    compile 'com.google.code.gson:gson:2.8.0'
+    // 数据库管理
+    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
+    // 控件注解
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    // ui框架
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.github.apl-devs:appintro:v4.2.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
+
+    compile 'com.ycl.tabview.library:tabviewlibrary:1.0'
+
+
 }
