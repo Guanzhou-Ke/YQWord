@@ -36,10 +36,6 @@ public class Queries {
             case CommonValues.NEVER_SHOW:
                 queryBuilder.where(WordDao.Properties.NeverShow.eq("1"));
                 break;
-            case CommonValues.UNKNOWN:
-                queryBuilder.where(WordDao.Properties.KnowTime.isNull()).
-                        where(WordDao.Properties.UnknownTime.gt(0)).where(WordDao.Properties.NeverShow.isNull()).orderDesc(WordDao.Properties.UnknownTime);
-                break;
             case CommonValues.NOT_LEARNED:
                 queryBuilder.where(WordDao.Properties.KnowTime.isNull()).
                         where(WordDao.Properties.UnknownTime.isNull()).where(WordDao.Properties.NeverShow.isNull());

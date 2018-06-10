@@ -44,7 +44,8 @@
             android:name=".view.ui.activity.WordListActivity"
             android:theme="@style/AppTheme.NormalActionBar" />
         <activity android:name=".view.ui.activity.SearchWordActivity" />
-        <activity android:name=".view.ui.activity.YouDaoWordActivity" />
+        <activity android:name=".view.ui.activity.YouDaoWordActivity"
+            android:theme="@style/AppTheme.NormalActionBar"/>
         <activity
             android:name=".view.ui.activity.WordDetailActivity"
             android:theme="@style/AppTheme.NormalActionBar" />
