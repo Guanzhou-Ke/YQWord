@@ -79,7 +79,9 @@ dependencies {
     compile 'com.github.apl-devs:appintro:v4.2.0'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
-
+    implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
+    implementation 'cn.bingoogolapple:bga-swipeitemlayout:1.0.4@aar'
     compile 'com.ycl.tabview.library:tabviewlibrary:1.0'
 
 

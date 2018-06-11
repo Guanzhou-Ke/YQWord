@@ -24,6 +24,7 @@ public class SoundPlayUtil{
 
     private static final String TAG = SoundPlayUtil.class.getSimpleName();
 
+    // 音频文件目录
     private static final String SOUND_FOLDER = "word_sound";
 
     // 音频池容量
@@ -32,12 +33,16 @@ public class SoundPlayUtil{
     // 当前容量
     private static int CURRENT_SOUND = 0;
 
+    // 初始化标记
     private static boolean inited = false;
 
+    // 资源管理器
     private static AssetManager mAssets;
 
+    // SoundPool对象
     private static SoundPool mSoundPool;
 
+    // 內建缓冲池
     private static Map<String, Integer> soundMap;
 
     public static void play(Context context, String wordName) {
@@ -75,6 +80,7 @@ public class SoundPlayUtil{
                 .setMaxStreams(MAX_SOUND)
                 .setAudioAttributes(attrBuilder.build())
                 .build();
+        // 必须实现该监听器，否则会抛出not ready，因为SoundPool是异步加载的
         mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             @Override
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {

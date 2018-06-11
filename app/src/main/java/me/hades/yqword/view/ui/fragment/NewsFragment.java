@@ -1,71 +1,112 @@
 package me.hades.yqword.view.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
+import me.hades.yqword.App;
 import me.hades.yqword.R;
+import me.hades.yqword.model.NewsModel;
+import me.hades.yqword.utils.ToastUtil;
+import me.hades.yqword.view.ui.activity.MainActivity;
+import me.hades.yqword.view.ui.adapter.NewsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link NewsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewsFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class NewsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class NewsFragment extends Fragment implements BGAOnRVItemClickListener,
+        BGARefreshLayout.BGARefreshLayoutDelegate{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String TAG = NewsFragment.class.getSimpleName();
 
+    @BindView(R.id.refresh_layout)
+    BGARefreshLayout mRefreshLayout;
+    @BindView(R.id.data_rv)
+    RecyclerView mDataRv;
+
+    NewsAdapter mAdapter;
+
+    int page = 0;
+    int pageCount = 20;
+
+    MainActivity mainActivity;
     private OnFragmentInteractionListener mListener;
+
+    private MaterialDialog mLoadingDialog;
 
     public NewsFragment() {
         // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NewsFragment newInstance(String param1, String param2) {
-        NewsFragment fragment = new NewsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
+        ButterKnife.bind(this, view);
+        initView();
+        return view;
+    }
+
+
+
+    private void initView() {
+        mRefreshLayout.setDelegate(this);
+
+        mAdapter = new NewsAdapter(mDataRv);
+        mAdapter.setOnRVItemClickListener(this);
+
+        BGAStickinessRefreshViewHolder stickinessRefreshViewHolder = new BGAStickinessRefreshViewHolder(
+                App.globalContext, true
+        );
+
+        stickinessRefreshViewHolder.setStickinessColor(R.color.colorPrimary);
+        stickinessRefreshViewHolder.setRotateImage(R.mipmap.bga_refresh_stickiness);
+        mRefreshLayout.setRefreshViewHolder(stickinessRefreshViewHolder);
+        mDataRv.setLayoutManager(new LinearLayoutManager(App.globalContext, LinearLayoutManager.VERTICAL, false));
+        mDataRv.setAdapter(mAdapter);
+
+        ArrayList<NewsModel> models = new ArrayList<>();
+        for (int i = 0; i < pageCount; i++) {
+            NewsModel news = new NewsModel();
+            news.setTitle("测试"+(i+(page*pageCount)));
+            news.setBrief("  简介...................");
+            news.setSource("来源：xxxxx");
+            news.setKeywords("考研 考研 考研");
+            news.setDetetime("06月10日");
+            models.add(news);
+        }
+        mAdapter.setData(models);
     }
 
 
@@ -74,6 +115,8 @@ public class NewsFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+            mainActivity = (MainActivity) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -84,6 +127,86 @@ public class NewsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        ToastUtil.showShort(getContext(), "点击了: " + mAdapter.getData().get(position).getTitle());
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(1500);
+                    page = 0;
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                mRefreshLayout.endRefreshing();
+                page = 0;
+                ArrayList<NewsModel> models = new ArrayList<>();
+                for (int i = 0; i < pageCount; i++) {
+                    NewsModel news = new NewsModel();
+                    news.setTitle("测试"+(i+(page*pageCount)));
+                    news.setBrief("  简介...................");
+                    news.setSource("来源：xxxxx");
+                    news.setKeywords("考研 考研 考研");
+                    news.setDetetime("06月10日");
+                    models.add(news);
+                }
+                mAdapter.setData(models);
+
+                Log.i(TAG, "上拉刷新完成");
+            }
+        }.execute();
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        showLoadingDialog();
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(1500);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                mRefreshLayout.endLoadingMore();
+                page++;
+                ArrayList<NewsModel> models = (ArrayList<NewsModel>) mAdapter.getData();
+                for (int i = 0; i < pageCount; i++) {
+                    NewsModel news = new NewsModel();
+                    news.setTitle("测试"+(i+(page*pageCount)));
+                    news.setBrief("  简介...................");
+                    news.setSource("来源：xxxxx");
+                    news.setKeywords("考研 考研 考研");
+                    news.setDetetime("06月10日");
+                    models.add(news);
+                }
+                mAdapter.setData(models);
+                dismissLoadingDialog();
+                Log.i(TAG, "下拉加载完成");
+            }
+        }.execute();
+        return true;
     }
 
     /**
@@ -100,4 +223,27 @@ public class NewsFragment extends Fragment {
 
         void onFragmentInteraction(int action);
     }
+
+
+    public void showLoadingDialog() {
+        if (mLoadingDialog == null) {
+            // 这里注意不能绑定全局
+            mLoadingDialog = new MaterialDialog.Builder(getContext())
+                    .title("加载中")
+                    .widgetColorRes(R.color.colorPrimary)
+                    .progress(true, 0)
+                    .iconRes(R.mipmap.ic_launcher)
+                    .cancelable(false)
+                    .build();
+        }
+        mLoadingDialog.setContent("好消息正在火速赶来...");
+        mLoadingDialog.show();
+    }
+
+    public void dismissLoadingDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
+    }
+
 }
