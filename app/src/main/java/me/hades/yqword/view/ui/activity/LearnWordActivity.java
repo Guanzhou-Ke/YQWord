@@ -1,11 +1,7 @@
 package me.hades.yqword.view.ui.activity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -19,8 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +29,7 @@ import me.hades.yqword.utils.CommonValues;
 import me.hades.yqword.utils.Config;
 import me.hades.yqword.utils.OnSwipeTouchListener;
 import me.hades.yqword.utils.SPUtil;
+import me.hades.yqword.utils.SoundPlayUtil;
 import me.hades.yqword.utils.ToastUtil;
 import me.hades.yqword.view.ui.dialog.NeverShowWordDialog;
 
@@ -134,7 +129,7 @@ public class LearnWordActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 netErrorShouldShow = true;
-                displayPronunciation();
+                displayPronunciation(words.getCurrent().getEnglish());
             }
         });
         unknownBtn.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +159,7 @@ public class LearnWordActivity extends BaseActivity {
             }
         });
         if (autoDisplay) {
-            displayPronunciation();
+            displayPronunciation(words.getCurrent().getEnglish());
         }
 
         cardView.setOnTouchListener(new OnSwipeTouchListener(this) {
@@ -234,7 +229,7 @@ public class LearnWordActivity extends BaseActivity {
         learnProgressBar.setProgress(words.getPercent());
         if (autoDisplay) {
 
-            displayPronunciation();
+            displayPronunciation(currentWord.getEnglish());
         }
         if (currentWord.isNeverShow()) {
             cancelGraspBtn.setVisibility(View.VISIBLE);
@@ -245,9 +240,11 @@ public class LearnWordActivity extends BaseActivity {
 
     /**
      * 播放音频
+     * @param english
      */
-    private void displayPronunciation() {
-        //TODO:先留着
+    private void displayPronunciation(String english) {
+
+        SoundPlayUtil.play(this, english);
     }
 
     /**
