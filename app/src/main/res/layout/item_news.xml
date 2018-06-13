@@ -4,86 +4,101 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
+    android:layout_height="100dp"
     app:cardElevation="12dp"
     >
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/news_img"
-            />
-
-        <RelativeLayout
-            android:layout_marginLeft="10dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:orientation="horizontal"
             >
 
-            <TextView
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title"
-                android:textColor="@color/bar_black"
-                android:textStyle="bold"
-                android:textSize="64px"
-                android:id="@+id/news_title"
-                />
-
-            <TextView
-                android:layout_below="@id/news_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="    Brief................................"
-                android:textSize="48px"
-                android:textStyle="italic"
-                android:id="@+id/news_brief"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/news_img"
                 />
 
             <LinearLayout
-                android:layout_below="@id/news_brief"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
                 >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/news_source"
-                    android:text="来源:xxxx"
+                    android:text="Title"
+                    android:textColor="@color/bar_black"
+                    android:textStyle="bold"
+                    android:textSize="36px"
+                    android:id="@+id/news_title"
                     />
+
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/news_keywords"
-                    android:text="关键字....."
+                    android:text="    Brief................................"
+                    android:textSize="30px"
+                    android:textStyle="italic"
+                    android:id="@+id/news_brief"
                     />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/news_date"
-                    android:text="06月10日"
-                    android:textAlignment="textEnd"
-                    />
+
+
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="24px"
+                android:id="@+id/news_source"
+                android:textColor="@color/bar_black"
+                android:text="来源:xxxx"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textSize="24px"
+                android:textColor="@color/bar_black"
+                android:id="@+id/news_keywords"
+                android:text="关键字....."
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/bar_black"
+                android:textSize="24px"
+                android:id="@+id/news_date"
+                android:text="06月10日"
+                android:textAlignment="textEnd"
+
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
 
 </android.support.v7.widget.CardView>

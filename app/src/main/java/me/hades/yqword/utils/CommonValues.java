@@ -12,6 +12,8 @@ public class CommonValues {
      */
     public static final String UMengAppkey = "5b129cfeb27b0a6b68000108";
 
+    public static final String SERVER_URL = "http://120.27.126.45:8081";
+
     // Modifiy
 
     public static final String MODE = "mode";
