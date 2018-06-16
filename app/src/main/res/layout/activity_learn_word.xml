@@ -61,7 +61,7 @@
                     android:id="@+id/cardTitle"
                     android:layout_width="400dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/blue"
+                    android:background="@color/greenbase"
                     android:weightSum="1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -99,7 +99,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@mipmap/ic_volume" />
+                        android:drawableLeft="@drawable/ic_sound" />
 
                 </LinearLayout>
 
@@ -215,7 +215,7 @@
             android:id="@+id/btnLyt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -227,16 +227,21 @@
             <Button
 
                 android:id="@+id/unknownBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="不认识" />
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@color/green1"
+                android:layout_marginRight="25dp"
+                android:text="不认识"
+                android:textColor="@color/white"/>
 
             <Button
 
                 android:id="@+id/knowBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="认识" />
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@color/green1"
+                android:text="认识"
+                android:textColor="@color/white"/>
 
 
         </LinearLayout>

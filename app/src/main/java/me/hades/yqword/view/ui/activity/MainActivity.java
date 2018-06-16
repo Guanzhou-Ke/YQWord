@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ycl.tabview.library.TabView;
 import com.ycl.tabview.library.TabViewChild;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.hades.yqword.App;
 import me.hades.yqword.R;
 import me.hades.yqword.utils.CommonValues;
 import me.hades.yqword.view.ui.fragment.NewsFragment;
@@ -43,6 +45,8 @@ public class MainActivity extends BaseActivity
     HomeFragment homeFragment;
     NewsFragment newsFragment;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +60,8 @@ public class MainActivity extends BaseActivity
 
         // 初始化底部导航栏
         List<TabViewChild> tabViewChildList=new ArrayList<>();
-        TabViewChild tab1 = new TabViewChild(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "记单词", homeFragment);
-        TabViewChild tab2 = new TabViewChild(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "考研动态", newsFragment);
+        TabViewChild tab1 = new TabViewChild(R.drawable.ic_main_learn2, R.drawable.ic_main_learn1, "记单词", homeFragment);
+        TabViewChild tab2 = new TabViewChild(R.drawable.ic_main_new2, R.drawable.ic_main_new1, "考研动态", newsFragment);
         tabViewChildList.add(tab1);
         tabViewChildList.add(tab2);
 
@@ -110,17 +114,15 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_user_info) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_hard_word_note) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_rank_list) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_about) {
 
         }
 
@@ -134,9 +136,6 @@ public class MainActivity extends BaseActivity
      */
     @Override
     public void onFragmentInteraction(int action) {
-        if (1 == action) {
-            Toast.makeText(context, "haha", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -146,4 +145,6 @@ public class MainActivity extends BaseActivity
             homeFragment.refresh();
         }
     }
+
+
 }

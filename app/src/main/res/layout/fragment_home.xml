@@ -53,7 +53,8 @@
     <Button
         android:id="@+id/startLearnBtn"
         style="@style/longButton"
-        android:background="#00FFFF"
-        android:text="@string/startLearn" />
+        android:background="@color/greenbase"
+        android:text="@string/startLearn"
+        android:textSize="20sp"/>
 
 </android.support.constraint.ConstraintLayout>

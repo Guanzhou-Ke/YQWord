@@ -50,15 +50,6 @@ import me.hades.yqword.view.ui.activity.WordListActivity;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
 
     @BindView(R.id.remainTimeTxt)
     TextView remainTimeTxt;
@@ -83,31 +74,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -224,11 +196,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
         // 已掌握区域颜色
-        int green = ContextCompat.getColor(context, R.color.green);
+        int green = ContextCompat.getColor(context, R.color.greenbase1);
         // 已记
-        int grey6 = ContextCompat.getColor(context, R.color.blue);
+        int grey6 = ContextCompat.getColor(context, R.color.greendark);
         // 未学习
-        int grey9 = ContextCompat.getColor(context, R.color.yellow);
+        int grey9 = ContextCompat.getColor(context, R.color.green1);
         set.setColors(green, grey6, grey9);
         PieData data = new PieData(set);
         progressRatePi.setCenterTextSize(40);

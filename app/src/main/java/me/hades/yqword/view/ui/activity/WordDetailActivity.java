@@ -24,6 +24,7 @@ import me.hades.yqword.model.Word;
 import me.hades.yqword.model.WordDao;
 import me.hades.yqword.utils.ChineseCheck;
 import me.hades.yqword.utils.CommonValues;
+import me.hades.yqword.utils.SoundPlayUtil;
 import me.hades.yqword.utils.ToastUtil;
 
 /**
@@ -198,7 +199,7 @@ public class WordDetailActivity extends BaseActivity {
      * 播放单词音频
      */
     public void displayPronunciation() {
-
+        SoundPlayUtil.play(this, english);
     }
 
     @Override
