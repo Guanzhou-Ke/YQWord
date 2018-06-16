@@ -7,24 +7,43 @@ package me.hades.yqword.model;
 
 public class NewsModel {
 
+    private Integer id;
     private String title;
     private String link;
     private String brief;
     private String source;
-    private String detetime;
+    private String datetime;
     private String keywords;
+
+    public NewsModel(Integer id, String title, String link, String brief, String source, String datetime, String keywords) {
+        this.id = id;
+        this.title = title;
+        this.link = link;
+        this.brief = brief;
+        this.source = source;
+        this.datetime = datetime;
+        this.keywords = keywords;
+    }
 
     public NewsModel() {
 
     }
 
-    public NewsModel(String title, String link, String breif, String source, String detetime, String keywords) {
+    public NewsModel(String title, String link, String breif, String source, String datetime, String keywords) {
         this.title = title;
         this.link = link;
         this.brief = breif;
         this.source = source;
-        this.detetime = detetime;
+        this.datetime = datetime;
         this.keywords = keywords;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -59,12 +78,12 @@ public class NewsModel {
         this.source = source;
     }
 
-    public String getDetetime() {
-        return detetime;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setDetetime(String detetime) {
-        this.detetime = detetime;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
     public String getKeywords() {
@@ -73,5 +92,18 @@ public class NewsModel {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsModel{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", brief='" + brief + '\'' +
+                ", source='" + source + '\'' +
+                ", datetime='" + datetime + '\'' +
+                ", keywords='" + keywords + '\'' +
+                '}';
     }
 }

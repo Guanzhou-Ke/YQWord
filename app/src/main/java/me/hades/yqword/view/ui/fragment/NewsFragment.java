@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,9 +27,14 @@ import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
 import me.hades.yqword.App;
 import me.hades.yqword.R;
 import me.hades.yqword.model.NewsModel;
+import me.hades.yqword.preference.ApiPreference;
 import me.hades.yqword.utils.ToastUtil;
 import me.hades.yqword.view.ui.activity.MainActivity;
+import me.hades.yqword.view.ui.activity.WebViewActivity;
 import me.hades.yqword.view.ui.adapter.NewsAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,10 +55,18 @@ public class NewsFragment extends Fragment implements BGAOnRVItemClickListener,
     NewsAdapter mAdapter;
 
     int page = 0;
-    int pageCount = 20;
+
+    private ArrayList<NewsModel> mDatas = null;
+
 
     MainActivity mainActivity;
     private OnFragmentInteractionListener mListener;
+
+    // 获取api接口
+    private ApiPreference apiPreference = App.apiPreference;
+
+    // 检测当前刷新加载状态
+    private boolean isRefresh = false, isLoadMore = false;
 
     private MaterialDialog mLoadingDialog;
 
@@ -96,17 +110,38 @@ public class NewsFragment extends Fragment implements BGAOnRVItemClickListener,
         mDataRv.setLayoutManager(new LinearLayoutManager(App.globalContext, LinearLayoutManager.VERTICAL, false));
         mDataRv.setAdapter(mAdapter);
 
-        ArrayList<NewsModel> models = new ArrayList<>();
-        for (int i = 0; i < pageCount; i++) {
-            NewsModel news = new NewsModel();
-            news.setTitle("测试"+(i+(page*pageCount)));
-            news.setBrief("  简介...................");
-            news.setSource("来源：xxxxx");
-            news.setKeywords("考研 考研 考研");
-            news.setDetetime("06月10日");
-            models.add(news);
+        showLoadingDialog();
+        isLoadMore = true;
+        getDataFromServer();
+
+    }
+
+    private void getDataFromServer() {
+        if (page == 0) {
+            mDatas = new ArrayList<>();
         }
-        mAdapter.setData(models);
+        apiPreference.listNews(page).enqueue(new Callback<List<NewsModel>>() {
+            @Override
+            public void onResponse(Call<List<NewsModel>> call, Response<List<NewsModel>> response) {
+                Log.i(TAG, response.body().toString());
+                mDatas.addAll(response.body());
+                if (isRefresh) {
+                    mRefreshLayout.endRefreshing();
+                    isRefresh = false;
+                } else if (isLoadMore) {
+                    dismissLoadingDialog();
+                    mRefreshLayout.endLoadingMore();
+                    isLoadMore = false;
+                }
+                mAdapter.setData(mDatas);
+                page++;
+            }
+
+            @Override
+            public void onFailure(Call<List<NewsModel>> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
     }
 
 
@@ -131,81 +166,22 @@ public class NewsFragment extends Fragment implements BGAOnRVItemClickListener,
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-        ToastUtil.showShort(getContext(), "点击了: " + mAdapter.getData().get(position).getTitle());
+        NewsModel newsModel = mAdapter.getData().get(position);
+        WebViewActivity.startActivity(getContext(), newsModel.getLink(), newsModel.getTitle());
+//        ToastUtil.showShort(getContext(), "点击了: " + mAdapter.getData().get(position).getTitle());
     }
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Thread.sleep(1500);
-                    page = 0;
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                mRefreshLayout.endRefreshing();
-                page = 0;
-                ArrayList<NewsModel> models = new ArrayList<>();
-                for (int i = 0; i < pageCount; i++) {
-                    NewsModel news = new NewsModel();
-                    news.setTitle("测试"+(i+(page*pageCount)));
-                    news.setBrief("  简介...................");
-                    news.setSource("来源：xxxxx");
-                    news.setKeywords("考研 考研 考研");
-                    news.setDetetime("06月10日");
-                    models.add(news);
-                }
-                mAdapter.setData(models);
-
-                Log.i(TAG, "上拉刷新完成");
-            }
-        }.execute();
+        isRefresh = true;
+        getDataFromServer();
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         showLoadingDialog();
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Thread.sleep(1500);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                mRefreshLayout.endLoadingMore();
-                page++;
-                ArrayList<NewsModel> models = (ArrayList<NewsModel>) mAdapter.getData();
-                for (int i = 0; i < pageCount; i++) {
-                    NewsModel news = new NewsModel();
-                    news.setTitle("测试"+(i+(page*pageCount)));
-                    news.setBrief("  简介...................");
-                    news.setSource("来源：xxxxx");
-                    news.setKeywords("考研 考研 考研");
-                    news.setDetetime("06月10日");
-                    models.add(news);
-                }
-                mAdapter.setData(models);
-                dismissLoadingDialog();
-                Log.i(TAG, "下拉加载完成");
-            }
-        }.execute();
+        isLoadMore = true;
+        getDataFromServer();
         return true;
     }
 

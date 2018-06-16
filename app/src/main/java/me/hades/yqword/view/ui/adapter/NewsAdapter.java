@@ -22,7 +22,7 @@ public class NewsAdapter extends BGARecyclerViewAdapter<NewsModel> {
         helper.setText(R.id.news_title, model.getTitle())
                 .setText(R.id.news_brief, model.getBrief())
                 .setText(R.id.news_source, model.getSource())
-                .setText(R.id.news_keywords, model.getKeywords())
-                .setText(R.id.news_date, model.getDetetime());
+                .setText(R.id.news_keywords, "关键字: "+model.getKeywords())
+                .setText(R.id.news_date, model.getDatetime());
     }
 }

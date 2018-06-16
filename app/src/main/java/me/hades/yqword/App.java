@@ -11,10 +11,13 @@ import com.umeng.commonsdk.UMConfigure;
 
 import me.hades.yqword.model.DaoMaster;
 import me.hades.yqword.model.DaoSession;
+import me.hades.yqword.preference.ApiPreference;
 import me.hades.yqword.utils.CommonValues;
 import me.hades.yqword.utils.Config;
 import me.hades.yqword.utils.SPUtil;
 import me.hades.yqword.utils.WordDatabase;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by hades on 2018/6/2.
@@ -25,6 +28,8 @@ public class App extends Application implements Application.ActivityLifecycleCal
     private static final String TAG = App.class.getSimpleName();
 
     public static Context globalContext = null;
+
+    public static ApiPreference apiPreference;
 
     /**
      * DEBUG 开关
@@ -77,6 +82,13 @@ public class App extends Application implements Application.ActivityLifecycleCal
 
         // 初始化配置工具
         Config.setContext(globalContext);
+
+        //初始化Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(CommonValues.SERVER_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiPreference = retrofit.create(ApiPreference.class);
     }
 
     @Override

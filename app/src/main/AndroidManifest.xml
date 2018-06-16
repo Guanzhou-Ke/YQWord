@@ -44,12 +44,16 @@
             android:name=".view.ui.activity.WordListActivity"
             android:theme="@style/AppTheme.NormalActionBar" />
         <activity android:name=".view.ui.activity.SearchWordActivity" />
-        <activity android:name=".view.ui.activity.YouDaoWordActivity"
-            android:theme="@style/AppTheme.NormalActionBar"/>
+        <activity
+            android:name=".view.ui.activity.YouDaoWordActivity"
+            android:theme="@style/AppTheme.NormalActionBar" />
         <activity
             android:name=".view.ui.activity.WordDetailActivity"
             android:theme="@style/AppTheme.NormalActionBar" />
-        <activity android:name=".view.ui.activity.LearnWordActivity"
+        <activity
+            android:name=".view.ui.activity.LearnWordActivity"
+            android:theme="@style/AppTheme.NormalActionBar" />
+        <activity android:name=".view.ui.activity.WebViewActivity"
             android:theme="@style/AppTheme.NormalActionBar"/>
     </application>
 
