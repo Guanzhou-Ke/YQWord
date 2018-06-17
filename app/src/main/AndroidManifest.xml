@@ -37,10 +37,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.ui.activity.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".view.ui.activity.WordListActivity"
             android:theme="@style/AppTheme.NormalActionBar" />
         <activity android:name=".view.ui.activity.SearchWordActivity" />
