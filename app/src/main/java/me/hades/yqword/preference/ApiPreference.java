@@ -17,4 +17,7 @@ public interface ApiPreference {
 
     @GET("/news/{page}")
     Call<List<NewsModel>> listNews(@Path("page") Integer page);
+
+    @GET("/user/{username}")
+    Call<List<>>
 }

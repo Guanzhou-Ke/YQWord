@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import me.hades.yqword.App;
 import me.hades.yqword.R;
 import me.hades.yqword.utils.CommonValues;
+import me.hades.yqword.utils.SPUtil;
 import me.hades.yqword.view.ui.fragment.NewsFragment;
 import me.hades.yqword.view.ui.fragment.HomeFragment;
 
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity
     HomeFragment homeFragment;
     NewsFragment newsFragment;
 
+    private Menu menu;
 
 
     @Override
@@ -74,6 +76,9 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        menu = navigationView.getMenu();
+
+
     }
 
     @Override

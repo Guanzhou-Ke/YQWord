@@ -57,6 +57,9 @@ public class CommonValues {
     public static boolean DATA_CHANGED = false;
     public static String youdaoWordPageUrl = "https://m.youdao.com/dict?le=eng&q=";
     public static String searchTipShow = "searchTipShow";
+
     public static String shouldShowGuide = "shouldShowGuide";
+
+
 
 }
