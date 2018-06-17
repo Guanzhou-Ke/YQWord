@@ -7,7 +7,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/greendark</item>
         <item name="colorPrimaryDark">@color/greenbase</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/blue1</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -18,7 +18,7 @@
     <style name="AppTheme.NormalActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/greendark</item>
         <item name="colorPrimaryDark">@color/greenbase</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/blue1</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
