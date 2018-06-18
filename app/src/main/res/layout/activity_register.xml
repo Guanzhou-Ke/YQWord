@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="me.hades.yqword.view.ui.activity.RegisterActivity">
+
+    <include layout="@layout/title_bar_back"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:layout_marginTop="60dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_icon"/>
+
+        <!--输入用户名的行-->
+        <TableRow
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:text="用户账号"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <EditText
+                android:text=""
+                android:id="@+id/userEditText"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"/>
+        </TableRow>
+        <!--输入密码行-->
+        <TableRow
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:text="用户密码"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:text=""
+                android:id="@+id/pwdEditText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </TableRow>
+
+        <!--输入密码行-->
+        <TableRow
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:text="确认密码"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:text=""
+                android:id="@+id/cf_pwdEditText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </TableRow>
+
+
+        <!--定义登录、取消按钮的行-->
+        <LinearLayout android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+            <Button
+                android:id="@+id/bnRegister"
+                android:text="注册"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"/>
+            <Button
+                android:id="@+id/bnCancel"
+                android:text="取消"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
+    </TableLayout>
+
+</LinearLayout>

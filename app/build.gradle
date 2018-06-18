@@ -9,6 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -94,6 +95,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
     // Okhttp库
 
+    // picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
     compile 'com.ycl.tabview.library:tabviewlibrary:1.0'

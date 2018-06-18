@@ -49,8 +49,18 @@
         <activity
             android:name=".view.ui.activity.LearnWordActivity"
             android:theme="@style/AppTheme.NormalActionBar" />
-        <activity android:name=".view.ui.activity.WebViewActivity"
-            android:theme="@style/AppTheme.NormalActionBar"/>
+        <activity
+            android:name=".view.ui.activity.WebViewActivity"
+            android:theme="@style/AppTheme.NormalActionBar" />
+        <activity
+            android:name=".view.ui.activity.LoginActivity"
+            android:theme="@style/AppTheme.NormalActionBar" />
+        <activity
+            android:name=".view.ui.activity.RegisterActivity"
+            android:theme="@style/AppTheme.NormalActionBar" />
+        <activity android:name=".view.ui.activity.UserDetailsActivity"
+            android:theme="@style/AppTheme.NormalActionBar"
+            />
     </application>
 
 </manifest>

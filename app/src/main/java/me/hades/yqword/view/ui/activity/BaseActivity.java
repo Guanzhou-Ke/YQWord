@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import me.hades.yqword.App;
+import me.hades.yqword.R;
 import me.hades.yqword.model.DaoSession;
 import me.hades.yqword.model.WordDao;
 
@@ -25,6 +28,8 @@ public class BaseActivity extends AppCompatActivity {
     WordDao wordDao;
     Context context;
 
+    private MaterialDialog mLoadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,5 +47,26 @@ public class BaseActivity extends AppCompatActivity {
 
     public WordDao getWordDao() {
         return wordDao;
+    }
+
+    public void showLoadingDialog(String content) {
+        if (mLoadingDialog == null) {
+            // 这里注意不能绑定全局
+            mLoadingDialog = new MaterialDialog.Builder(this)
+                    .title("提示")
+                    .widgetColorRes(R.color.colorPrimary)
+                    .progress(true, 0)
+                    .iconRes(R.mipmap.ic_launcher)
+                    .cancelable(false)
+                    .build();
+        }
+        mLoadingDialog.setContent(content);
+        mLoadingDialog.show();
+    }
+
+    public void dismissLoadingDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
     }
 }

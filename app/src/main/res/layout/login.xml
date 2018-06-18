@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:stretchColumns="1"
-    android:layout_marginTop="60dp">
+    android:layout_marginTop="0dp">
+
+    <include layout="@layout/title_bar_back"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,10 +42,10 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:text=""
-            android:id="@+id/pwdEditTetx"
+            android:id="@+id/pwdEditText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:password="true"/>
+            android:inputType="textPassword"/>
     </TableRow>
     <!--定义登录、取消按钮的行-->
     <LinearLayout android:orientation="horizontal"
@@ -62,5 +65,17 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginLeft="20dp"/>
+
     </LinearLayout>
+
+    <TableRow
+        android:gravity="right"
+        android:layout_margin="10dp">
+        <TextView
+            android:id="@+id/register_tv"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            android:text="还没有账号？点击注册"
+            />
+    </TableRow>
 </TableLayout>

@@ -60,6 +60,8 @@ public class CommonValues {
 
     public static String shouldShowGuide = "shouldShowGuide";
 
+    public static final String TOKEN_KEY = "token";
 
+    public static final String USERNAME_KEY = "username";
 
 }
