@@ -19,12 +19,6 @@
             android:orientation="horizontal"
             >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"
-                android:id="@+id/news_img"
-                />
 
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -38,18 +32,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Title"
-                    android:textColor="@color/bar_black"
+                    android:textColor="@color/greenbase"
                     android:textStyle="bold"
-                    android:textSize="36px"
+                    android:textSize="50px"
                     android:id="@+id/news_title"
                     />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="    Brief................................"
                     android:textSize="30px"
+                    android:maxEms="30"
                     android:textStyle="italic"
                     android:id="@+id/news_brief"
                     />

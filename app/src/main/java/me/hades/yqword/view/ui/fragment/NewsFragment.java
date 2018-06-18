@@ -104,7 +104,7 @@ public class NewsFragment extends Fragment implements BGAOnRVItemClickListener,
                 App.globalContext, true
         );
 
-        stickinessRefreshViewHolder.setStickinessColor(R.color.colorPrimary);
+        stickinessRefreshViewHolder.setStickinessColor(R.color.greenbase);
         stickinessRefreshViewHolder.setRotateImage(R.mipmap.bga_refresh_stickiness);
         mRefreshLayout.setRefreshViewHolder(stickinessRefreshViewHolder);
         mDataRv.setLayoutManager(new LinearLayoutManager(App.globalContext, LinearLayoutManager.VERTICAL, false));
@@ -206,7 +206,7 @@ public class NewsFragment extends Fragment implements BGAOnRVItemClickListener,
             // 这里注意不能绑定全局
             mLoadingDialog = new MaterialDialog.Builder(getContext())
                     .title("加载中")
-                    .widgetColorRes(R.color.colorPrimary)
+                    .widgetColorRes(R.color.greenbase)
                     .progress(true, 0)
                     .iconRes(R.mipmap.ic_launcher)
                     .cancelable(false)
